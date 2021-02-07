@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Android Paging Library on MVI</string>
+    <string name="item_loading_error">Error loading Data. Press to try again</string>
+    <string name="error_screen_title">Oooooooh!</string>
+    <string name="error_screen_summary">Error Loading Data\nSwipe Down to Refresh</string>
+    <string name="share">Share</string>
+    <string name="detail_title">Detail</string>
+    <string name="since_publishing">since publishing</string>
+    <string name="detail_views">Views</string>
+    <string name="detail_downloads">Downloads</string>
+    <string name="detail_camera">Camera Make</string>
+    <string name="detail_camera_model">Camera Model</string>
+    <string name="detail_focal">Focal Length</string>
+    <string name="detail_aperture">Aperture</string>
+    <string name="detail_shutter">Shutter Speed</string>
+    <string name="detail_dimensions">Dimensions</string>
+    <string name="detail_iso">ISO</string>
+    <string name="detail_published">Published on %s</string>
+    <string name="detail_apperture_f"><i>f</i>/</string>
+    <string name="detail_unknown_content">--</string>
+    <string name="button_retry">RETRY</string>
+    <string name="data_loading_error">Data loading error</string>
+</resources>

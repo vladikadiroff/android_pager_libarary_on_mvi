@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/photosFragment">
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="ru.vladikadiroff.pagination.ui.fragments.PhotosFragment"
+        android:label="PhotosFragment"
+        tools:layout="@layout/fragment_photos">
+        <action
+            android:id="@+id/actionToPhotoInfo"
+            app:destination="@id/photoInfoBottomDialog" />
+        <action
+            android:id="@+id/actionToPhotoFullScreen"
+            app:destination="@id/photoFullScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFullScreenFragment"
+        android:name="ru.vladikadiroff.pagination.ui.fragments.PhotoFullScreenFragment"
+        android:label="PhotoFullScreenFragment"
+        tools:layout="@layout/fragment_photo_fullscreen">
+        <argument
+            android:name="model"
+            app:argType="ru.vladikadiroff.pagination.domain.models.PhotoModel" />
+    </fragment>
+    <dialog
+        android:id="@+id/photoInfoBottomDialog"
+        android:name="ru.vladikadiroff.pagination.ui.dialogs.PhotoInfoBottomDialog"
+        android:label="PhotoInfoBottomDialog"
+        tools:layout="@layout/dialog_photo_info">
+        <argument
+            android:name="model"
+            app:argType="ru.vladikadiroff.pagination.domain.models.PhotoModel" />
+    </dialog>
+</navigation>

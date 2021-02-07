@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/photo_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_background_size"
+        android:alpha="0.25"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_background_size"
+        android:background="@drawable/alpha_gradient_background"
+        android:scaleType="centerCrop" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dialog_info_padding">
+
+        <TextView
+            android:id="@+id/textTitle"
+            style="@style/DetailTitle"
+            android:text="@string/detail_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textPublished"
+            style="@style/TextSummary"
+            android:layout_marginTop="2dp"
+            android:text="@string/detail_published"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+        <TextView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_group_margin"
+            android:alpha="0.9"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="@string/detail_views"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_views"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textPublished" />
+
+        <TextView
+            android:id="@+id/textViewsCount"
+            style="@style/DetailTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            tools:text="11 1123" />
+
+        <TextView
+            android:id="@+id/textSincePublished"
+            style="@style/TextSummary"
+            android:text="@string/since_publishing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewsCount" />
+
+        <TextView
+            android:id="@+id/textDetailDownLoads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_group_margin"
+            android:alpha="0.9"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="@string/detail_downloads"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_download"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/textPublished" />
+
+        <TextView
+            android:id="@+id/textDownloadsCount"
+            style="@style/DetailTitle"
+            app:layout_constraintStart_toStartOf="@+id/textDetailDownLoads"
+            app:layout_constraintTop_toBottomOf="@+id/textDetailDownLoads"
+            tools:text="83" />
+
+        <TextView
+            android:id="@+id/textSincePublished2"
+            style="@style/TextSummary"
+            android:text="@string/since_publishing"
+            app:layout_constraintStart_toStartOf="@+id/textDownloadsCount"
+            app:layout_constraintTop_toBottomOf="@+id/textDownloadsCount" />
+
+        <View
+            android:id="@+id/view"
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/detail_group_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textSincePublished" />
+
+        <TextView
+            android:id="@+id/textCameraSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_group_margin"
+            android:text="@string/detail_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/textCamera"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textCameraSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textCameraSummary"
+            tools:text="SONY" />
+
+        <TextView
+            android:id="@+id/textCameraModelSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_group_margin"
+            android:text="@string/detail_camera_model"
+            app:layout_constraintStart_toStartOf="@+id/textDetailDownLoads"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/textCameraModel"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textCameraModelSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textCameraModelSummary"
+            tools:text="ILCE-7M3" />
+
+
+        <TextView
+            android:id="@+id/textFocalLengthSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_type_margin"
+            android:text="@string/detail_focal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textCamera" />
+
+        <TextView
+            android:id="@+id/textFocalLength"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textFocalLengthSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textFocalLengthSummary"
+            tools:text="35.0mm" />
+
+        <TextView
+            android:id="@+id/textApertureSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_type_margin"
+            android:text="@string/detail_aperture"
+            app:layout_constraintStart_toStartOf="@+id/textCameraModel"
+            app:layout_constraintTop_toBottomOf="@+id/textCameraModel" />
+
+        <TextView
+            android:id="@+id/textApertureAbbreviature"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textApertureSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textApertureSummary"
+            tools:text="@string/detail_apperture_f" />
+
+
+        <TextView
+            android:id="@+id/textAperture"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toEndOf="@+id/textApertureAbbreviature"
+            app:layout_constraintTop_toBottomOf="@+id/textApertureSummary"
+            tools:text="2.2" />
+
+        <TextView
+            android:id="@+id/textShutterSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_type_margin"
+            android:text="@string/detail_shutter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textFocalLength" />
+
+        <TextView
+            android:id="@+id/textShutter"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textShutterSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textShutterSummary"
+            tools:text="1/160s" />
+
+
+        <TextView
+            android:id="@+id/textDimensionsSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_type_margin"
+            android:text="@string/detail_dimensions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textShutter" />
+
+        <TextView
+            android:id="@+id/textDimensions"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textDimensionsSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textDimensionsSummary"
+            tools:text="3561 x 5341" />
+
+        <TextView
+            android:id="@+id/textIsoSummary"
+            style="@style/TextSummary"
+            android:layout_marginTop="@dimen/detail_type_margin"
+            android:text="@string/detail_iso"
+            app:layout_constraintStart_toStartOf="@+id/textApertureSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textAperture" />
+
+        <TextView
+            android:id="@+id/textISO"
+            style="@style/DetailSummary2"
+            app:layout_constraintStart_toStartOf="@+id/textIsoSummary"
+            app:layout_constraintTop_toBottomOf="@+id/textIsoSummary"
+            tools:text="125" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/loadingScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="@dimen/progressbar_size"
+            android:layout_height="@dimen/progressbar_size"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/errorScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/image_exception_size"
+            android:layout_height="@dimen/image_exception_size"
+            android:src="@drawable/ic_network_off" />
+
+        <TextView
+            style="@style/TextViewSansPro"
+            android:text="@string/error_screen_title"
+            android:textSize="@dimen/font_size_large"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/TextViewSansPro"
+            android:gravity="center"
+            android:text="@string/data_loading_error"
+            android:textSize="@dimen/font_size_small" />
+
+        <Button
+            android:id="@+id/retryButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/button_retry"
+            android:textAppearance="@style/TextViewSansPro"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

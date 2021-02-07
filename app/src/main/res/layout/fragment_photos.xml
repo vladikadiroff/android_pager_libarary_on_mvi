@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_card">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_photo" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/loadingScreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:duration="800">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <include layout="@layout/placeholder_item_photo" />
+
+                <include layout="@layout/placeholder_item_photo" />
+
+                <include layout="@layout/placeholder_item_photo" />
+
+                <include layout="@layout/placeholder_item_photo" />
+
+                <include layout="@layout/placeholder_item_photo" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <LinearLayout
+            android:id="@+id/errorScreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/image_exception_size"
+                android:layout_height="@dimen/image_exception_size"
+                android:src="@drawable/ic_network_off" />
+
+            <TextView
+                style="@style/TextViewSansPro"
+                android:text="@string/error_screen_title"
+                android:textSize="@dimen/font_size_large"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextViewSansPro"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:text="@string/error_screen_summary"
+                android:textSize="@dimen/font_size_small" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

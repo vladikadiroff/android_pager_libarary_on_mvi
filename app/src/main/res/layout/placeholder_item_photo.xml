@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:backgroundTint="@color/background_shimmer"
+    android:id="@+id/itemContainer"
+    style="@style/CustomCardView"
+    android:layout_marginStart="@dimen/cardview_padding"
+    android:layout_marginEnd="@dimen/cardview_padding"
+    android:layout_marginBottom="@dimen/cardview_padding">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="256dp"/>
+
+
+</androidx.cardview.widget.CardView>

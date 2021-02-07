@@ -1,0 +1,81 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AndroidPagingLibraryOnMVI" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/purple_500</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Customize -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+
+
+    <style name="CustomCardView" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
+    </style>
+
+    <style name="TextViewSansPro">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="ActionBarText" parent="TextViewSansPro">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAppearance">@style/ActionBarText</item>
+    </style>
+
+    <style name="ImageViewIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
+    <style name="DetailTitle" parent="TextViewSansPro">
+        <item name="alpha">0.7</item>
+        <item name="android:textSize">@dimen/font_size_large</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextSummary" parent="TextViewSansPro">
+        <item name="alpha">0.7</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
+    </style>
+
+    <style name="DetailSummary2" parent="TextViewSansPro">
+        <item name="alpha">0.7</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/background_shimmer</item>
+    </style>
+
+    <!-- RoundedImageView -->
+    <style name="RoundedImageView">
+        <item name="strokeColor">@color/white</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <!-- RoundedImageView -->
+
+
+
+</resources>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemContainer"
+    style="@style/CustomCardView"
+    android:layout_marginStart="@dimen/cardview_padding"
+    android:layout_marginEnd="@dimen/cardview_padding"
+    android:layout_marginBottom="@dimen/cardview_padding">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/userImage"
+            app:layout_constraintStart_toEndOf="@+id/userImage"
+            app:layout_constraintTop_toTopOf="@+id/userImage">
+
+            <TextView
+                android:id="@+id/userName"
+                style="@style/TextViewSansPro"
+                android:textColor="@color/black"
+                tools:text="Anna Choy" />
+
+            <TextView
+                android:id="@+id/userProfile"
+                style="@style/TextSummary"
+                tools:text="/@fdsadf" />
+
+        </LinearLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userImage"
+            style="@style/RoundedImageView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="@dimen/cardview_padding"
+            android:src="@color/purple_500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ru.vladikadiroff.pagination.utils.helpers.ImageViewWithAspectRatio
+            android:id="@+id/pictureImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/cardview_padding"
+            android:layout_marginBottom="@dimen/cardview_padding"
+            app:layout_constraintBottom_toTopOf="@+id/likeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+        <ImageView
+            android:id="@+id/likeImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:alpha="0"
+            android:src="@drawable/ic_like_vector"
+            app:layout_constraintBottom_toBottomOf="@+id/pictureImage"
+            app:layout_constraintEnd_toEndOf="@+id/pictureImage"
+            app:layout_constraintStart_toStartOf="@+id/pictureImage"
+            app:layout_constraintTop_toTopOf="@+id/pictureImage" />
+
+        <CheckBox
+            android:id="@+id/likeButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/cardview_padding"
+            android:alpha="0.8"
+            android:background="@drawable/button_like"
+            android:button="@null"
+            android:stateListAnimator="@animator/scale"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/pictureImage" />
+
+        <ImageView
+            android:id="@+id/infoButton"
+            style="@style/ImageViewIcon"
+            android:layout_margin="@dimen/cardview_padding"
+            android:alpha="0.8"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/pictureImage" />
+
+        <TextView
+            android:id="@+id/likesCount"
+            style="@style/TextViewSansPro"
+            android:alpha="0.8"
+            android:paddingStart="4dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/likeButton"
+            app:layout_constraintStart_toEndOf="@+id/likeButton"
+            app:layout_constraintTop_toTopOf="@+id/likeButton"
+            tools:text="123" />
+
+        <ImageView
+            android:id="@+id/shareButton"
+            android:alpha="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:rotationY="180"
+            android:layout_marginEnd="@dimen/cardview_padding"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/infoButton"
+            app:layout_constraintEnd_toStartOf="@+id/infoButton"
+            app:layout_constraintTop_toTopOf="@+id/infoButton"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_share" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
