@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.transition.MaterialContainerTransform
 import ru.vladikadiroff.pagination.utils.helpers.ShimmerWithLifecycleHandler
-import ru.vladikadiroff.pagination.utils.helpers.SingleLiveAction
 
 fun Fragment.showToast(msg: String) = Toast.makeText(this.context, msg, Toast.LENGTH_LONG).show()
 
@@ -53,13 +52,6 @@ private fun setGlideRequestListener(onLoad: (() -> Unit)?, onError: (() -> Unit)
         }
     }
 
-fun <T> LiveData<T>.toSingleAction(): LiveData<T> {
-    val result = SingleLiveAction<T>()
-    result.addSource(this) {
-        result.value = it
-    }
-    return result
-}
 
 fun ShimmerFrameLayout.withLifecycleHandler(lifecycleOwner: LifecycleOwner):
         ShimmerWithLifecycleHandler {

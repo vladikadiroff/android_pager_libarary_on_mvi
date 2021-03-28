@@ -2,6 +2,7 @@ package ru.vladikadiroff.pagination.utils.abstracts
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 
 abstract class MviFragment<VB : ViewBinding, VS, VA, VE, VM : MviViewModel<VS, VA, VE>> :
@@ -12,7 +13,9 @@ abstract class MviFragment<VB : ViewBinding, VS, VA, VE, VM : MviViewModel<VS, V
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.attachToNewInstance()
         viewModel.obtainViewState.observe(viewLifecycleOwner, ::render)
-        viewModel.obtainViewAction.observe(viewLifecycleOwner, ::renderAction)
+        viewModel.obtainViewAction.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { content -> renderAction(content) }
+        })
         initFragment()
     }
 

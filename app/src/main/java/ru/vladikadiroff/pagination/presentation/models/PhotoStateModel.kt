@@ -1,6 +1,5 @@
 package ru.vladikadiroff.pagination.presentation.models
 
-import android.widget.ImageView
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData

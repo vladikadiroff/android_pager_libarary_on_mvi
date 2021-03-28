@@ -1,20 +1,22 @@
 package ru.vladikadiroff.pagination.presentation.viewmodels
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.cachedIn
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.vladikadiroff.pagination.domain.InteractorImpl
 import ru.vladikadiroff.pagination.presentation.models.PhotosViewAction
 import ru.vladikadiroff.pagination.presentation.models.PhotosViewEvent
 import ru.vladikadiroff.pagination.presentation.models.PhotosViewState
 import ru.vladikadiroff.pagination.utils.abstracts.MviViewModel
+import javax.inject.Inject
 
-class PhotosViewModel @ViewModelInject constructor(private val interactor: InteractorImpl) :
+@HiltViewModel
+class PhotosViewModel @Inject constructor(private val interactor: InteractorImpl) :
     MviViewModel<PhotosViewState, PhotosViewAction, PhotosViewEvent>() {
 
     init {
@@ -64,11 +66,10 @@ class PhotosViewModel @ViewModelInject constructor(private val interactor: Inter
     }
 
     private fun fetchPhotos() {
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor.getPhotos()
-                .cachedIn(viewModelScope)
-                .collect { pager -> viewState = viewState.copy(pager = pager) }
-        }
+        interactor.getPhotos()
+            .cachedIn(viewModelScope)
+            .onEach { pager -> viewState = viewState.copy(pager = pager) }
+            .launchIn(viewModelScope)
     }
 
     override fun obtainEvent(event: PhotosViewEvent) {
@@ -82,7 +83,7 @@ class PhotosViewModel @ViewModelInject constructor(private val interactor: Inter
                 viewAction = PhotosViewAction.SharePhoto(event.model.photoThumbnail)
             is PhotosViewEvent.ItemInfoClick ->
                 viewAction = PhotosViewAction.ShowPhotoInfo(event.model)
-            else -> viewModelScope.launch { reduce(event) }
+            else -> reduce(event)
         }
     }
 

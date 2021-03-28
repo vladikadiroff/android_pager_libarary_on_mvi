@@ -3,7 +3,7 @@ package ru.vladikadiroff.pagination.utils.abstracts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.vladikadiroff.pagination.utils.extensions.toSingleAction
+import ru.vladikadiroff.pagination.utils.helpers.SingleEvent
 
 abstract class MviViewModel<VS, VA, VE> : ViewModel() {
 
@@ -22,8 +22,8 @@ abstract class MviViewModel<VS, VA, VE> : ViewModel() {
             viewStateLiveData.postValue(value)
         }
 
-    private val viewActionLiveData = MutableLiveData<VA>()
-    val obtainViewAction = viewActionLiveData.toSingleAction()
+    private val viewActionLiveData = MutableLiveData<SingleEvent<VA>>()
+    val obtainViewAction = viewActionLiveData as LiveData<SingleEvent<VA>>
 
     private var _viewAction: VA? = null
     protected var viewAction: VA
@@ -31,7 +31,7 @@ abstract class MviViewModel<VS, VA, VE> : ViewModel() {
             ?: throw UninitializedPropertyAccessException("\"viewAction\" was queried before being initialized")
         set(value) {
             _viewAction = value
-            viewActionLiveData.postValue(value)
+            viewActionLiveData.postValue(SingleEvent(value))
         }
 
     // update isNewInstanceAttached on attach to new instance
