@@ -26,7 +26,7 @@ class InteractorImpl @Inject constructor(
 
     override fun getPhotoInfo(id: String): StateFlow<InteractorLoadState<PhotoInfoModel>> {
         val state =
-            MutableStateFlow<InteractorLoadState<PhotoInfoModel>>(InteractorLoadState.Loading())
+            MutableStateFlow<InteractorLoadState<PhotoInfoModel>>(InteractorLoadState.Loading)
         launchBackground {
             try {
                 val content = photoConverter.map(repository.getPhotoInfo(id))
