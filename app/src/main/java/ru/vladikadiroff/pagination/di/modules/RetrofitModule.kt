@@ -1,4 +1,4 @@
-package ru.vladikadiroff.pagination.di
+package ru.vladikadiroff.pagination.di.modules
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

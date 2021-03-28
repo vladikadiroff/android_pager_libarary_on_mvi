@@ -3,13 +3,13 @@ package ru.vladikadiroff.pagination.utils.abstracts
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-abstract class CoroutineInteractor {
+abstract class CoroutineInteractor (private val ioDispatcher: CoroutineDispatcher) {
 
     private var interactorJob = SupervisorJob()
     private val interactorScope = CoroutineScope(Dispatchers.Main + interactorJob)
 
     fun <P> CoroutineInteractor.launchBackground(event: suspend CoroutineScope.() -> P) {
-        launchCoroutine(event, interactorScope, Dispatchers.IO)
+        launchCoroutine(event, interactorScope, ioDispatcher)
     }
 
     private inline fun <P> launchCoroutine(
