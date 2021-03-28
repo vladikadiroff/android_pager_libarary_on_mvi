@@ -1,7 +1,7 @@
 package ru.vladikadiroff.pagination.presentation.viewmodels
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.vladikadiroff.pagination.domain.InteractorImpl
@@ -10,8 +10,10 @@ import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewAction
 import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewEvent
 import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewState
 import ru.vladikadiroff.pagination.utils.abstracts.MviViewModel
+import javax.inject.Inject
 
-class PhotoDetailViewModel @ViewModelInject constructor(private val interactor: InteractorImpl) :
+@HiltViewModel
+class PhotoDetailViewModel @Inject constructor(private val interactor: InteractorImpl) :
     MviViewModel<PhotoInfoViewState, PhotoInfoViewAction, PhotoInfoViewEvent>() {
 
     private var id: String? = null
