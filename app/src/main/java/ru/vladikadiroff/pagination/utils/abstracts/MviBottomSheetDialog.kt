@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.flow.onEach
+import ru.vladikadiroff.pagination.utils.extensions.launchWhenStarted
+import ru.vladikadiroff.pagination.utils.helpers.onSingleEvent
 
 abstract class MviBottomSheetDialog <VB : ViewBinding, VS, VA, VE, VM : MviViewModel<VS, VA, VE>> :
     BottomSheetDialogFragment() {
@@ -31,11 +34,10 @@ abstract class MviBottomSheetDialog <VB : ViewBinding, VS, VA, VE, VM : MviViewM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.attachToNewInstance()
-        viewModel.obtainViewState.observe(viewLifecycleOwner, ::render)
-        viewModel.obtainViewAction.observe(viewLifecycleOwner, Observer { event ->
-            event.getContentIfNotHandled()?.let { content -> renderAction(content) }
-        })
         initDialog()
+        viewModel.obtainViewState.onEach(::render).launchWhenStarted(lifecycle, lifecycleScope)
+        viewModel.obtainViewAction.onSingleEvent(::renderAction)
+            .launchWhenStarted(lifecycle, lifecycleScope)
     }
 
     open fun initDialog() {}

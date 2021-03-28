@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import ru.vladikadiroff.pagination.domain.InteractorImpl
 import ru.vladikadiroff.pagination.presentation.models.PhotosViewAction
 import ru.vladikadiroff.pagination.presentation.models.PhotosViewEvent
@@ -17,10 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PhotosViewModel @Inject constructor(private val interactor: InteractorImpl) :
-    MviViewModel<PhotosViewState, PhotosViewAction, PhotosViewEvent>() {
+    MviViewModel<PhotosViewState, PhotosViewAction, PhotosViewEvent>(PhotosViewState(loadingScreen = true)) {
 
     init {
-        viewState = PhotosViewState(loadingScreen = true)
         fetchPhotos()
     }
 

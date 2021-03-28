@@ -2,8 +2,11 @@ package ru.vladikadiroff.pagination.utils.abstracts
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.flow.onEach
+import ru.vladikadiroff.pagination.utils.extensions.launchWhenStarted
+import ru.vladikadiroff.pagination.utils.helpers.onSingleEvent
 
 abstract class MviFragment<VB : ViewBinding, VS, VA, VE, VM : MviViewModel<VS, VA, VE>> :
     ViewBindingFragment<VB>() {
@@ -12,11 +15,10 @@ abstract class MviFragment<VB : ViewBinding, VS, VA, VE, VM : MviViewModel<VS, V
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.attachToNewInstance()
-        viewModel.obtainViewState.observe(viewLifecycleOwner, ::render)
-        viewModel.obtainViewAction.observe(viewLifecycleOwner, Observer { event ->
-            event.getContentIfNotHandled()?.let { content -> renderAction(content) }
-        })
         initFragment()
+        viewModel.obtainViewState.onEach(::render).launchWhenStarted(lifecycle, lifecycleScope)
+        viewModel.obtainViewAction.onSingleEvent(::renderAction)
+            .launchWhenStarted(lifecycle, lifecycleScope)
     }
 
     protected fun postEvent(event: VE) = viewModel.obtainEvent(event)

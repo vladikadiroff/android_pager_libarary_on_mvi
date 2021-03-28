@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PhotoDetailViewModel @Inject constructor(private val interactor: InteractorImpl) :
-    MviViewModel<PhotoInfoViewState, PhotoInfoViewAction, PhotoInfoViewEvent>() {
+    MviViewModel<PhotoInfoViewState, PhotoInfoViewAction, PhotoInfoViewEvent>
+        (PhotoInfoViewState(loadingScreen = true)) {
 
     private var id: String? = null
 
@@ -44,6 +45,5 @@ class PhotoDetailViewModel @Inject constructor(private val interactor: Interacto
             is PhotoInfoViewEvent.LoadContent -> load(event.id)
         }
     }
-
 
 }
