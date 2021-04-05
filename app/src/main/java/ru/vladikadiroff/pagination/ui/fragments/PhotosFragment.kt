@@ -44,12 +44,12 @@ class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,
         initAdapter()
     }
 
-    private fun initViews() {
-        binding.list.doOnPreDraw { startPostponedEnterTransition() }
-        loadingScreen = binding.loadingScreen.withLifecycleHandler(viewLifecycleOwner)
-        binding.swipeRefresh.setOnRefreshListener { postEvent(PhotosViewEvent.Refresh) }
-        binding.list.adapter = adapter.withLoadStateFooter(LoadStateAdapter(adapter::retry))
-        binding.list.doOnApplyWindowInsets { list, insets, _ ->
+    private fun initViews() = with(binding){
+        list.doOnPreDraw { startPostponedEnterTransition() }
+        this@PhotosFragment.loadingScreen = loadingScreen.withLifecycleHandler(viewLifecycleOwner)
+        swipeRefresh.setOnRefreshListener { postEvent(PhotosViewEvent.Refresh) }
+        list.adapter = adapter.withLoadStateFooter(LoadStateAdapter(adapter::retry))
+        list.doOnApplyWindowInsets { list, insets, _ ->
             list.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
             insets
         }

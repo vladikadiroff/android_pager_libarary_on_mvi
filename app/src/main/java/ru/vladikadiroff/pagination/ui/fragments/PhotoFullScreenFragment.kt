@@ -33,16 +33,16 @@ class PhotoFullScreenFragment : ViewBindingFragment<FragmentPhotoFullscreenBindi
         initViews()
     }
 
-    private fun initViews() {
-        binding.transitionView.aspectRatio = args.model.ratio
-        binding.transitionView.transitionName = args.model.id
-        binding.pictureImage.withGlide(args.model.photoThumbnail, onLoad = { startPostponedEnterTransition() })
-        binding.navigateImage.setOnClickListener { findNavController().navigateUp() }
-        binding.upBar.doOnApplyWindowInsets { bar, insets, _ ->
+    private fun initViews() = with(binding){
+        transitionView.aspectRatio = args.model.ratio
+        transitionView.transitionName = args.model.id
+        pictureImage.withGlide(args.model.photoThumbnail, onLoad = { startPostponedEnterTransition() })
+        navigateImage.setOnClickListener { findNavController().navigateUp() }
+        upBar.doOnApplyWindowInsets { bar, insets, _ ->
             bar.updatePadding(top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top)
             insets
         }
-        val attacher = PhotoViewAttacher(binding.pictureImage)
+        val attacher = PhotoViewAttacher(pictureImage)
         attacher.setOnSingleFlingListener(onSingleFlingListener())
         attacher.setOnViewTapListener { _, _, _ -> showOrHideBar() }
     }

@@ -29,19 +29,19 @@ class PhotoInfoBottomDialog : MviBottomSheetDialog<DialogPhotoInfoBinding, Photo
     override val viewBindingInflater: (LayoutInflater, ViewGroup?, Boolean) ->
     DialogPhotoInfoBinding = DialogPhotoInfoBinding::inflate
 
-    override fun initDialog() {
+    override fun initDialog()  = with(binding){
         postEvent(PhotoInfoViewEvent.LoadContent(args.model.id))
-        binding.photoBackground.withGlide(args.model.photoThumbnail)
-        binding.photoBackground.colorFilter =
+        photoBackground.withGlide(args.model.photoThumbnail)
+        photoBackground.colorFilter =
             ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
-        binding.retryButton.setOnClickListener { postEvent(PhotoInfoViewEvent.LoadContent(args.model.id)) }
+        retryButton.setOnClickListener { postEvent(PhotoInfoViewEvent.LoadContent(args.model.id)) }
     }
 
-    override fun render(state: PhotoInfoViewState) {
-        binding.loadingScreen.isVisible = state.loadingScreen
-        binding.errorScreen.isVisible = state.errorScreen
-        if (state.infoScreen == null) binding.infoScreen.isInvisible = true
-        else binding.infoScreen.setVisibleWithFadeAnimation(true)
+    override fun render(state: PhotoInfoViewState): Unit = with(binding){
+        loadingScreen.isVisible = state.loadingScreen
+        errorScreen.isVisible = state.errorScreen
+        if (state.infoScreen == null) infoScreen.isInvisible = true
+        else infoScreen.setVisibleWithFadeAnimation(true)
         state.infoScreen?.let { setContent(it) }
     }
 
