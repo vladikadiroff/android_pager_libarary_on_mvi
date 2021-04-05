@@ -13,17 +13,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DispatchersModule {
 
-    private val dispatcherIO = Dispatchers.IO
-    private val dispatcherMain = Dispatchers.Main
-
     @Provides
     @Singleton
     @DispatcherIO
-    fun provideDispatcherIO() = dispatcherIO
+    fun provideDispatcherIO() = Dispatchers.IO
 
     @Provides
     @Singleton
     @DispatcherMain
-    fun provideDispatcherMain() = dispatcherMain
+    fun provideDispatcherMain() = Dispatchers.Main
 
 }

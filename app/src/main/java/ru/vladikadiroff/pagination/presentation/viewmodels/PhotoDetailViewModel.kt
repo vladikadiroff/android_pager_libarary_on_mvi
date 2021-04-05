@@ -2,8 +2,8 @@ package ru.vladikadiroff.pagination.presentation.viewmodels
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import ru.vladikadiroff.pagination.domain.InteractorImpl
 import ru.vladikadiroff.pagination.domain.models.InteractorLoadState
 import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewAction
@@ -25,18 +25,16 @@ class PhotoDetailViewModel @Inject constructor(private val interactor: Interacto
     }
 
     private fun getContent(id: String) {
-        viewModelScope.launch {
-            interactor.getPhotoInfo(id).collect { status ->
-                viewState = when (status) {
-                    is InteractorLoadState.Loading -> PhotoInfoViewState(loadingScreen = true)
-                    is InteractorLoadState.Content -> PhotoInfoViewState(infoScreen = status.content)
-                    is InteractorLoadState.Error -> {
-                        viewAction = PhotoInfoViewAction.ShowToast(status.error)
-                        PhotoInfoViewState(errorScreen = true)
-                    }
+        interactor.getPhotoInfo(id).onEach { status ->
+            viewState = when (status) {
+                is InteractorLoadState.Loading -> PhotoInfoViewState(loadingScreen = true)
+                is InteractorLoadState.Content -> PhotoInfoViewState(infoScreen = status.content)
+                is InteractorLoadState.Error -> {
+                    viewAction = PhotoInfoViewAction.ShowToast(status.error)
+                    PhotoInfoViewState(errorScreen = true)
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     override fun obtainEvent(event: PhotoInfoViewEvent) {
