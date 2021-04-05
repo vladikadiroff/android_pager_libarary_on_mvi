@@ -31,9 +31,8 @@ import javax.inject.Inject
 class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,
         PhotosViewAction, PhotosViewEvent, PhotosViewModel>() {
 
-    @Inject
-    lateinit var adapter: PhotosAdapter
-    private lateinit var loadingScreen: ShimmerWithLifecycleHandler
+    private val adapter = PhotosAdapter()
+    private var loadingScreen: ShimmerWithLifecycleHandler? = null
     override val viewModel: PhotosViewModel by viewModels()
     override val viewBindingInflater: (LayoutInflater, ViewGroup?, Boolean) ->
     FragmentPhotosBinding = FragmentPhotosBinding::inflate
@@ -61,7 +60,7 @@ class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,
     }
 
     override fun render(state: PhotosViewState) {
-        loadingScreen.isVisible = state.loadingScreen
+        loadingScreen?.isVisible = state.loadingScreen
         binding.swipeRefresh.isRefreshing = state.refresh
         binding.errorScreen.isVisible = state.errorScreen
         state.pager?.let { lifecycleScope.launch { adapter.submitData(it) } }
