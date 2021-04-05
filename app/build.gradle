@@ -90,7 +90,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Android Paging Library
-    implementation "androidx.paging:paging-runtime-ktx:3.0.0-alpha13"
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0-beta03"
 
     //Glide
     def glide_version = "4.11.0"

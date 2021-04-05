@@ -33,7 +33,6 @@ class PhotosViewModel @Inject constructor(private val interactor: InteractorImpl
                 viewState.copy(refresh = true)
             }
             is PhotosViewEvent.PagingLoadState -> {
-                if (checkOnAttachToNewInstanceAndUpdate()) return // ignore first call on attach listener
                 checkOnErrorAndShow(event.state)
                 when (event.state.refresh) {
                     is LoadState.Loading ->
@@ -49,7 +48,7 @@ class PhotosViewModel @Inject constructor(private val interactor: InteractorImpl
                             loadingScreen = false
                         ) else return
                     is LoadState.NotLoading ->
-                        if (viewState.loadingScreen || viewState.refresh) {
+                        if (viewState.loadingScreen && event.state.prepend.endOfPaginationReached || viewState.refresh) {
                             viewAction = PhotosViewAction.ScrollListToStartPosition
                             viewState.copy(
                                 refresh = false,

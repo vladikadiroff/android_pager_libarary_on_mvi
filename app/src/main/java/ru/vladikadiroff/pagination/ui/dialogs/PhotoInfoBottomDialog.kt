@@ -34,7 +34,7 @@ class PhotoInfoBottomDialog : MviBottomSheetDialog<DialogPhotoInfoBinding, Photo
         binding.photoBackground.withGlide(args.model.photoThumbnail)
         binding.photoBackground.colorFilter =
             ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
-        binding.retryButton.setOnClickListener { postEvent(PhotoInfoViewEvent.Retry) }
+        binding.retryButton.setOnClickListener { postEvent(PhotoInfoViewEvent.LoadContent(args.model.id)) }
     }
 
     override fun render(state: PhotoInfoViewState) {

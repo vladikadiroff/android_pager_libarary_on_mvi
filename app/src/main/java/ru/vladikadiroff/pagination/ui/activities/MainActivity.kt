@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() = findNavController(R.id.navHost).navigateUp()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
-        window.reenterTransition = null
-
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

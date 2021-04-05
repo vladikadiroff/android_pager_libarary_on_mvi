@@ -33,7 +33,6 @@ abstract class MviBottomSheetDialog <VB : ViewBinding, VS, VA, VE, VM : MviViewM
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.attachToNewInstance()
         initDialog()
         viewModel.obtainViewState.onEach(::render).launchWhenStarted(lifecycle, lifecycleScope)
         viewModel.obtainViewAction.onSingleEvent(::renderAction)

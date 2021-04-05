@@ -17,14 +17,7 @@ class PhotoDetailViewModel @Inject constructor(private val interactor: Interacto
     MviViewModel<PhotoInfoViewState, PhotoInfoViewAction, PhotoInfoViewEvent>
         (PhotoInfoViewState(loadingScreen = true)) {
 
-    private var id: String? = null
-
-    private fun load(id: String) {
-        if (this.id != id) getContent(id)
-        this.id = id
-    }
-
-    private fun getContent(id: String) {
+    private fun fetchInfo(id: String) {
         interactor.getPhotoInfo(id).onEach { status ->
             viewState = when (status) {
                 is InteractorLoadState.Loading -> PhotoInfoViewState(loadingScreen = true)
@@ -39,8 +32,7 @@ class PhotoDetailViewModel @Inject constructor(private val interactor: Interacto
 
     override fun obtainEvent(event: PhotoInfoViewEvent) {
         when (event) {
-            is PhotoInfoViewEvent.Retry -> id?.let { getContent(it) }
-            is PhotoInfoViewEvent.LoadContent -> load(event.id)
+            is PhotoInfoViewEvent.LoadContent -> fetchInfo(event.id)
         }
     }
 

@@ -10,9 +10,6 @@ import ru.vladikadiroff.pagination.utils.helpers.SingleEvent
 
 abstract class MviViewModel<VS, VA, VE>(initialViewState: VS) : ViewModel() {
 
-    // For check attach to new instance
-    private var isNewInstanceAttached = false
-
     private val viewStateFlow = MutableStateFlow(initialViewState)
     val obtainViewState = viewStateFlow.asStateFlow()
 
@@ -38,18 +35,6 @@ abstract class MviViewModel<VS, VA, VE>(initialViewState: VS) : ViewModel() {
             _viewAction = value
             viewActionLiveData.tryEmit(SingleEvent(value))
         }
-
-    // update isNewInstanceAttached on attach to new instance
-    fun attachToNewInstance() {
-        isNewInstanceAttached = true
-    }
-
-    // check for new instance attached and update to old instance
-    protected fun checkOnAttachToNewInstanceAndUpdate(): Boolean {
-        val newInstance = isNewInstanceAttached
-        isNewInstanceAttached = false
-        return newInstance
-    }
 
     abstract fun obtainEvent(event: VE)
 

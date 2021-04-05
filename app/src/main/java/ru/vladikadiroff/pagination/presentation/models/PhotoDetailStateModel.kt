@@ -9,7 +9,6 @@ data class PhotoInfoViewState(
 )
 
 sealed class PhotoInfoViewEvent {
-    object Retry : PhotoInfoViewEvent()
     class LoadContent(val id: String) : PhotoInfoViewEvent()
 }
 

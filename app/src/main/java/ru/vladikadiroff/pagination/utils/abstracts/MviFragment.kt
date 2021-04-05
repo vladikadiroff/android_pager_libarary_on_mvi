@@ -14,7 +14,6 @@ abstract class MviFragment<VB : ViewBinding, VS, VA, VE, VM : MviViewModel<VS, V
     protected abstract val viewModel: VM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.attachToNewInstance()
         initFragment()
         viewModel.obtainViewState.onEach(::render).launchWhenStarted(lifecycle, lifecycleScope)
         viewModel.obtainViewAction.onSingleEvent(::renderAction)
