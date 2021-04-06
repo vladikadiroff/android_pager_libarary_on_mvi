@@ -3,6 +3,7 @@ package ru.vladikadiroff.pagination.utils.helpers
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import com.facebook.shimmer.ShimmerFrameLayout
 
@@ -27,4 +28,11 @@ class ShimmerWithLifecycleHandler(private val shimmer: ShimmerFrameLayout) :
         if (isVisible) shimmer.startShimmerAnimation()
     }
 
+}
+
+fun ShimmerFrameLayout.withLifecycleHandler(lifecycleOwner: LifecycleOwner):
+        ShimmerWithLifecycleHandler {
+    val shimmer = ShimmerWithLifecycleHandler(this)
+    lifecycleOwner.lifecycle.addObserver(shimmer)
+    return shimmer
 }

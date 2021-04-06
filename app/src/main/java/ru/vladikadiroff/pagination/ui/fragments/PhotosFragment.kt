@@ -23,9 +23,8 @@ import ru.vladikadiroff.pagination.ui.adapters.PhotosAdapter
 import ru.vladikadiroff.pagination.utils.abstracts.MviFragment
 import ru.vladikadiroff.pagination.utils.extensions.doOnApplyWindowInsets
 import ru.vladikadiroff.pagination.utils.extensions.showToast
-import ru.vladikadiroff.pagination.utils.extensions.withLifecycleHandler
 import ru.vladikadiroff.pagination.utils.helpers.ShimmerWithLifecycleHandler
-import javax.inject.Inject
+import ru.vladikadiroff.pagination.utils.helpers.withLifecycleHandler
 
 @AndroidEntryPoint
 class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,

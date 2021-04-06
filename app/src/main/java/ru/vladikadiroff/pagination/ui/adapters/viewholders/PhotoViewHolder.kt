@@ -8,8 +8,11 @@ import ru.vladikadiroff.pagination.domain.models.PhotoModel
 import ru.vladikadiroff.pagination.presentation.models.PhotosViewEvent
 import ru.vladikadiroff.pagination.utils.abstracts.BaseViewHolder
 import ru.vladikadiroff.pagination.utils.extensions.startVectorAnimation
-import ru.vladikadiroff.pagination.utils.extensions.truncateNumber
 import ru.vladikadiroff.pagination.utils.extensions.withGlide
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import kotlin.math.ln
+import kotlin.math.pow
 
 
 class PhotoViewHolder(parent: ViewGroup, private val listener: ((PhotosViewEvent) -> Unit)?) :
@@ -33,13 +36,7 @@ class PhotoViewHolder(parent: ViewGroup, private val listener: ((PhotosViewEvent
         shareButton.setOnClickListener { listener?.invoke(PhotosViewEvent.ItemShareClick(model)) }
         infoButton.setOnClickListener { listener?.invoke(PhotosViewEvent.ItemInfoClick(model)) }
         pictureImage.setOnClickListener {
-            listener?.invoke(
-                PhotosViewEvent.ItemPhotoClick(
-                    model,
-                    FragmentNavigatorExtras(pictureImage to model.id)
-                )
-            )
-        }
+            listener?.invoke(PhotosViewEvent.ItemPhotoClick(model, FragmentNavigatorExtras(pictureImage to model.id)))}
         likeButton.setOnCheckedChangeListener { _, checked ->
             model.likeUser = checked
             likesCount.text = countLikes(model)
@@ -52,7 +49,22 @@ class PhotoViewHolder(parent: ViewGroup, private val listener: ((PhotosViewEvent
 
     private fun countLikes(model: PhotoModel): String {
         val likes = model.likes.toInt() + if (model.likeUser) 1 else 0
-        return likes.toString().truncateNumber()
+        return truncateNumber(likes)
+    }
+
+    private fun truncateNumber(number: Int): String {
+        return try {
+            val number = number.toDouble()
+            val suffixChars = "KMGTPE"
+            val formatter = DecimalFormat("###.#").also { it.roundingMode = RoundingMode.DOWN }
+            if (number < 1000.0) formatter.format(number)
+            else {
+                val exp = (ln(number) / ln(1000.0)).toInt()
+                formatter.format(number / 1000.0.pow(exp.toDouble())) + suffixChars[exp - 1]
+            }
+        } catch (e: Exception){
+            number.toString()
+        }
     }
 
 }

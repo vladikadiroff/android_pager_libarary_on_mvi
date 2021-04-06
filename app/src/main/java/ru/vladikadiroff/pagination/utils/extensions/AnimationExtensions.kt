@@ -6,19 +6,12 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.transition.Transition
 import androidx.transition.TransitionListenerAdapter
-import androidx.transition.Visibility
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.transition.MaterialContainerTransform
-import com.google.android.material.transition.MaterialElevationScale
 import ru.vladikadiroff.pagination.R
-import ru.vladikadiroff.pagination.utils.helpers.ShimmerWithLifecycleHandler
 
 fun Drawable.startVectorAnimation() {
     when (this) {
@@ -27,8 +20,6 @@ fun Drawable.startVectorAnimation() {
         else -> return
     }
 }
-
-
 
 fun View.setVisibleWithFadeAnimation(visibility: Boolean = true) {
     resources.getInteger(R.integer.reply_motion_fade_in)
@@ -47,6 +38,17 @@ fun View.setVisibleWithFadeAnimation(visibility: Boolean = true) {
             .start()
 }
 
+inline fun MaterialContainerTransform.doOnTransitionAnimationEnd(crossinline action: () -> Unit) {
+    addListener(object : TransitionListenerAdapter() {
+        override fun onTransitionEnd(transition: Transition) {
+            try {
+                action.invoke()
+            } catch (e: Exception) {
+                Log.e("Crutch onTransitionEnd", e.toString())
+            }
+        }
+    })
+}
 
 
 
