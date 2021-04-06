@@ -14,5 +14,8 @@
     <dimen name="progressbar_size">30dp</dimen>
     <dimen name="dialog_info_padding">32dp</dimen>
     <dimen name="image_background_size">200dp</dimen>
+    <dimen name="user_avatar_size">45dp</dimen>
+    <dimen name="vector_like_size">100dp</dimen>
+    <dimen name="footer_icon_size">24dp</dimen>
 
 </resources>

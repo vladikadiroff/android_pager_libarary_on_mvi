@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/cardview_padding">
+
+    <CheckBox
+        android:id="@+id/likeButton"
+        style="@style/FooterIcon"
+        android:background="@drawable/button_like"
+        android:button="@null"
+        android:stateListAnimator="@animator/scale" />
+
+    <TextView
+        android:id="@+id/likesCount"
+        style="@style/TextViewSansPro"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:alpha="0.8"
+        android:paddingStart="4dp"
+        android:textStyle="bold"
+        tools:text="123" />
+
+    <ImageView
+        android:id="@+id/shareButton"
+        style="@style/FooterIcon"
+        android:rotationY="180"
+        android:src="@drawable/ic_share" />
+
+    <ImageView
+        android:id="@+id/infoButton"
+        style="@style/FooterIcon"
+        android:layout_marginStart="@dimen/cardview_padding"
+        android:src="@drawable/ic_info" />
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/userImage"
+        style="@style/RoundedImageView"
+        android:layout_width="@dimen/user_avatar_size"
+        android:layout_height="@dimen/user_avatar_size"
+        android:layout_margin="@dimen/cardview_padding"
+        android:src="@color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/userName"
+            style="@style/TextViewSansPro"
+            android:textColor="@color/black"
+            tools:text="Anna Choy" />
+
+        <TextView
+            android:id="@+id/userProfile"
+            style="@style/TextSummary"
+            tools:text="\@instagramm" />
+
+    </LinearLayout>
+
+</LinearLayout>

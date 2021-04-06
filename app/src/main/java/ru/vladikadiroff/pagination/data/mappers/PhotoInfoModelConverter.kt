@@ -1,4 +1,4 @@
-package ru.vladikadiroff.pagination.domain.mappers
+package ru.vladikadiroff.pagination.data.mappers
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext

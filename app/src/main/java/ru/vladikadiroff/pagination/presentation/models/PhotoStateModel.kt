@@ -4,12 +4,13 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import ru.vladikadiroff.pagination.domain.models.PhotoModel
+import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterModel
 
 data class PhotosViewState(
     val refresh: Boolean = false,
     val loadingScreen: Boolean = false,
     val errorScreen: Boolean = false,
-    val pager: PagingData<PhotoModel>? = null
+    val pager: PagingData<PhotosAdapterModel>? = null
 )
 
 sealed class PhotosViewEvent {

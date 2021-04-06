@@ -35,9 +35,12 @@
         <item name="android:textAppearance">@style/ActionBarText</item>
     </style>
 
-    <style name="ImageViewIcon">
-        <item name="android:layout_width">24dp</item>
-        <item name="android:layout_height">24dp</item>
+    <style name="FooterIcon">
+        <item name="android:layout_width">@dimen/footer_icon_size</item>
+        <item name="android:layout_height">@dimen/footer_icon_size</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="DetailTitle" parent="TextViewSansPro">

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
@@ -30,32 +29,22 @@ import ru.vladikadiroff.pagination.utils.helpers.withLifecycleHandler
 class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,
         PhotosViewAction, PhotosViewEvent, PhotosViewModel>() {
 
-    private val adapter = PhotosAdapter()
+    private val adapter = PhotosAdapter(::postEvent)
     private var loadingScreen: ShimmerWithLifecycleHandler? = null
     override val viewModel: PhotosViewModel by viewModels()
     override val viewBindingInflater: (LayoutInflater, ViewGroup?, Boolean) ->
     FragmentPhotosBinding = FragmentPhotosBinding::inflate
 
-    override fun initFragment() {
+    override fun initFragment() = with(binding){
         postponeEnterTransition()
-        initViews()
-        initAdapter()
-    }
-
-    private fun initViews() = with(binding){
-        list.doOnPreDraw { startPostponedEnterTransition() }
         this@PhotosFragment.loadingScreen = loadingScreen.withLifecycleHandler(viewLifecycleOwner)
         swipeRefresh.setOnRefreshListener { postEvent(PhotosViewEvent.Refresh) }
         list.adapter = adapter.withLoadStateFooter(LoadStateAdapter(adapter::retry))
+        adapter.addLoadStateListener { postEvent(PhotosViewEvent.PagingLoadState(it)) }
         list.doOnApplyWindowInsets { list, insets, _ ->
             list.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
             insets
         }
-    }
-
-    private fun initAdapter() {
-        adapter.addEventListener { postEvent(it) }
-        adapter.addLoadStateListener { postEvent(PhotosViewEvent.PagingLoadState(it)) }
     }
 
     override fun render(state: PhotosViewState) {
