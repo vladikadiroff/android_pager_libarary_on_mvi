@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_photo_fullscreen">
         <argument
             android:name="model"
-            app:argType="ru.vladikadiroff.pagination.domain.models.PhotoModel" />
+            app:argType="ru.vladikadiroff.pagination.presentation.models.PhotoImageModel" />
     </fragment>
     <dialog
         android:id="@+id/photoInfoBottomDialog"
@@ -32,6 +32,6 @@
         tools:layout="@layout/dialog_photo_info">
         <argument
             android:name="model"
-            app:argType="ru.vladikadiroff.pagination.domain.models.PhotoModel" />
+            app:argType="ru.vladikadiroff.pagination.presentation.models.PhotoFooterModel" />
     </dialog>
 </navigation>

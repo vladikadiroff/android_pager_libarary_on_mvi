@@ -5,7 +5,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.vladikadiroff.pagination.R
 import ru.vladikadiroff.pagination.data.models.CameraInfoRequestModel
 import ru.vladikadiroff.pagination.data.models.PhotoInfoRequestModel
-import ru.vladikadiroff.pagination.domain.models.PhotoInfoModel
+import ru.vladikadiroff.pagination.presentation.models.PhotoInfoModel
 import java.text.DateFormatSymbols
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols

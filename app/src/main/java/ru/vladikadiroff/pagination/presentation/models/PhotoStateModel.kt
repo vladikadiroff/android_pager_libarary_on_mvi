@@ -3,34 +3,32 @@ package ru.vladikadiroff.pagination.presentation.models
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
-import ru.vladikadiroff.pagination.domain.models.PhotoModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterModel
 
 data class PhotosViewState(
     val refresh: Boolean = false,
     val loadingScreen: Boolean = false,
     val errorScreen: Boolean = false,
-    val pager: PagingData<PhotosAdapterModel>? = null
+    val pager: PagingData<PhotoModel>? = null
 )
 
 sealed class PhotosViewEvent {
     object Refresh : PhotosViewEvent()
     class ItemPhotoClick(
-        val model: PhotoModel,
+        val model: PhotoImageModel,
         val transitionExtras: FragmentNavigator.Extras
     ) : PhotosViewEvent()
 
-    class ItemInfoClick(val model: PhotoModel) : PhotosViewEvent()
-    class ItemShareClick(val model: PhotoModel) : PhotosViewEvent()
+    class ItemInfoClick(val model: PhotoFooterModel) : PhotosViewEvent()
+    class ItemShareClick(val model: PhotoFooterModel) : PhotosViewEvent()
     class PagingLoadState(val state: CombinedLoadStates) : PhotosViewEvent()
 }
 
 sealed class PhotosViewAction {
     object RefreshList : PhotosViewAction()
-    class ShowPhotoInfo(val model: PhotoModel) : PhotosViewAction()
+    class ShowPhotoInfo(val model: PhotoFooterModel) : PhotosViewAction()
     class SharePhoto(val url: String) : PhotosViewAction()
     class NavigateToPhotoFullScreen(
-        val model: PhotoModel,
+        val model: PhotoImageModel,
         val extras: FragmentNavigator.Extras
     ) : PhotosViewAction()
 

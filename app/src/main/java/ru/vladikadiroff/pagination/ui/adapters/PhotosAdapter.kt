@@ -3,52 +3,46 @@ package ru.vladikadiroff.pagination.ui.adapters
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import ru.vladikadiroff.pagination.domain.models.PhotoModel
-import ru.vladikadiroff.pagination.presentation.models.PhotosViewEvent
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterFooterModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterHeaderModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterImageModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterModel
-import ru.vladikadiroff.pagination.ui.adapters.viewholders.*
+import ru.vladikadiroff.pagination.presentation.models.*
+import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotosViewHoldersFactory
+import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotosViewHoldersFactory.*
 import ru.vladikadiroff.pagination.utils.abstracts.BaseViewHolder
-import ru.vladikadiroff.pagination.utils.helpers.SingleEvent
 
-class PhotosAdapter(private val eventListener: (PhotosViewEvent) -> Unit) :
-    PagingDataAdapter<PhotosAdapterModel, BaseViewHolder>(DiffUtilCallback()) {
+class PhotosAdapter(private val listener: (PhotosViewEvent) -> Unit) :
+    PagingDataAdapter<PhotoModel, BaseViewHolder>(PhotosAdapterDiffUtill()) {
 
-    override fun getItemViewType(position: Int): Int {
-        return getItem(position)?.viewType?.value ?:
-        throw IllegalArgumentException("Items Not Found")
-    }
+    override fun getItemViewType(position: Int) = getRequireItem(position).viewType
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        when(holder) {
-            is PhotoHeaderViewHolder -> holder.bind(getItem(position)!! as PhotosAdapterHeaderModel)
-            is PhotoImageViewHolder -> holder.bind(getItem(position)!! as PhotosAdapterImageModel)
-            is PhotoFooterViewHolder -> holder.bind(getItem(position)!! as PhotosAdapterFooterModel)
+        when (holder) {
+            is PhotoHeaderViewHolder -> holder.bind(getRequireItem(position) as PhotoHeaderModel)
+            is PhotoImageViewHolder -> holder.bind(getRequireItem(position) as PhotoImageModel)
+            is PhotoFooterViewHolder -> holder.bind(getRequireItem(position) as PhotoFooterModel)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return PhotosViewHoldersFabric.create(parent, viewType)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        PhotosViewHoldersFactory.create(parent, viewType, listener)
 
+    private fun getRequireItem(position: Int) =
+        getItem(position) ?: throw IllegalArgumentException("Item in position $position not found")
 
-    class DiffUtilCallback : DiffUtil.ItemCallback<PhotosAdapterModel>() {
+    class PhotosAdapterDiffUtill : DiffUtil.ItemCallback<PhotoModel>() {
+
         override fun areItemsTheSame(
-            oldItem: PhotosAdapterModel,
-            newItem: PhotosAdapterModel
+            oldItem: PhotoModel,
+            newItem: PhotoModel
         ): Boolean {
-            return false
+            return newItem.id == oldItem.id && newItem.viewType == oldItem.viewType
         }
 
         override fun areContentsTheSame(
-            oldItem: PhotosAdapterModel,
-            newItem: PhotosAdapterModel
+            oldItem: PhotoModel,
+            newItem: PhotoModel
         ): Boolean {
             return true
         }
+
     }
 
 }

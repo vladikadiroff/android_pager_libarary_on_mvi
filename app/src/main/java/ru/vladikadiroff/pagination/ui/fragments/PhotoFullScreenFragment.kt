@@ -26,6 +26,16 @@ class PhotoFullScreenFragment : ViewBindingFragment<FragmentPhotoFullscreenBindi
     override val viewBindingInflater: (LayoutInflater, ViewGroup?, Boolean) ->
     FragmentPhotoFullscreenBinding = FragmentPhotoFullscreenBinding::inflate
 
+    private val onSingleFlingListener = OnSingleFlingListener { e1, e2, _, velocityY ->
+        val swipeMinDistance = 120
+        val swipeThresholdVelocity = 200
+        if (e1.y - e2.y > swipeMinDistance && abs(velocityY) > swipeThresholdVelocity)
+            findNavController().navigateUp() // top to bottom
+        else if (e2.y - e1.y > swipeMinDistance && abs(velocityY) > swipeThresholdVelocity)
+            findNavController().navigateUp() // bottom to top
+        true
+    }
+
     override fun initFragment() {
         showOrHideBar()
         postponeEnterTransition()
@@ -36,25 +46,15 @@ class PhotoFullScreenFragment : ViewBindingFragment<FragmentPhotoFullscreenBindi
     private fun initViews() = with(binding){
         transitionView.aspectRatio = args.model.ratio
         transitionView.transitionName = args.model.id
-        pictureImage.withGlide(args.model.photoThumbnail, onLoad = { startPostponedEnterTransition() })
+        pictureImage.withGlide(args.model.image, onLoad = { startPostponedEnterTransition() })
         navigateImage.setOnClickListener { findNavController().navigateUp() }
         upBar.doOnApplyWindowInsets { bar, insets, _ ->
             bar.updatePadding(top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top)
             insets
         }
         val attacher = PhotoViewAttacher(pictureImage)
-        attacher.setOnSingleFlingListener(onSingleFlingListener())
+        attacher.setOnSingleFlingListener(onSingleFlingListener)
         attacher.setOnViewTapListener { _, _, _ -> showOrHideBar() }
-    }
-
-    private fun onSingleFlingListener() = OnSingleFlingListener { e1, e2, _, velocityY ->
-        val swipeMinDistance = 120
-        val swipeThresholdVelocity = 200
-        if (e1.y - e2.y > swipeMinDistance && abs(velocityY) > swipeThresholdVelocity)
-            findNavController().navigateUp() // top to bottom
-        else if (e2.y - e1.y > swipeMinDistance && abs(velocityY) > swipeThresholdVelocity)
-            findNavController().navigateUp() // bottom to top
-        true
     }
 
     private fun initTransitionAnimation() {

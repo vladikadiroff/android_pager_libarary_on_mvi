@@ -1,4 +1,4 @@
-package ru.vladikadiroff.pagination.domain.models
+package ru.vladikadiroff.pagination.presentation.models
 
 data class PhotoInfoModel(
     val published: String,

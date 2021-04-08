@@ -36,7 +36,6 @@ class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,
     FragmentPhotosBinding = FragmentPhotosBinding::inflate
 
     override fun initFragment() = with(binding){
-        postponeEnterTransition()
         this@PhotosFragment.loadingScreen = loadingScreen.withLifecycleHandler(viewLifecycleOwner)
         swipeRefresh.setOnRefreshListener { postEvent(PhotosViewEvent.Refresh) }
         list.adapter = adapter.withLoadStateFooter(LoadStateAdapter(adapter::retry))

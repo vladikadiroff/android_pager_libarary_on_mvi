@@ -2,34 +2,33 @@ package ru.vladikadiroff.pagination.data.mappers
 
 import ru.vladikadiroff.pagination.data.models.PhotoRequestModel
 import ru.vladikadiroff.pagination.data.models.PhotoUserRequestModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterFooterModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterHeaderModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterImageModel
-import ru.vladikadiroff.pagination.ui.adapters.models.PhotosAdapterModel
+import ru.vladikadiroff.pagination.presentation.models.PhotoFooterModel
+import ru.vladikadiroff.pagination.presentation.models.PhotoHeaderModel
+import ru.vladikadiroff.pagination.presentation.models.PhotoImageModel
 import java.util.*
 import javax.inject.Inject
 
 class PhotoModelConverter @Inject constructor() {
 
-    fun map2(api: PhotoRequestModel) : List<PhotosAdapterModel> {
-        val header = PhotosAdapterHeaderModel(
+    fun map(api: PhotoRequestModel) = listOf(
+        PhotoHeaderModel(
             id = api.id,
             userName = api.user.name,
             userAccount = getUserAccount(api.user),
             userProfileImage = api.user.avatar.medium
-        )
-        val image = PhotosAdapterImageModel(
+        ),
+        PhotoImageModel(
             id = api.id,
             image = api.photoUrls.regular,
             ratio = api.height.toFloat() / api.width.toFloat(),
-        )
-        val footer = PhotosAdapterFooterModel(
+        ),
+        PhotoFooterModel(
             id = api.id,
             likes = api.likes,
-            photoDownload = api.downloadUrl.urlDownload ?: api.photoUrls.regular,
+            image = api.photoUrls.regular,
+            imageDownload = api.downloadUrl.urlDownload ?: api.photoUrls.regular,
         )
-        return listOf(header, image, footer)
-    }
+    )
 
     private fun getUserAccount(api: PhotoUserRequestModel): String {
         var account = ""

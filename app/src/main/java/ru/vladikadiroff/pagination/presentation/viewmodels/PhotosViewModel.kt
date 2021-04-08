@@ -77,7 +77,7 @@ class PhotosViewModel @Inject constructor(private val interactor: InteractorImpl
                     event.transitionExtras
                 )
             is PhotosViewEvent.ItemShareClick ->
-                viewAction = PhotosViewAction.SharePhoto(event.model.photoThumbnail)
+                viewAction = PhotosViewAction.SharePhoto(event.model.imageDownload)
             is PhotosViewEvent.ItemInfoClick ->
                 viewAction = PhotosViewAction.ShowPhotoInfo(event.model)
             else -> reduce(event)

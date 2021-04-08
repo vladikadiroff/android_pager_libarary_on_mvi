@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.vladikadiroff.pagination.databinding.DialogPhotoInfoBinding
-import ru.vladikadiroff.pagination.domain.models.PhotoInfoModel
+import ru.vladikadiroff.pagination.presentation.models.PhotoInfoModel
 import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewAction
 import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewEvent
 import ru.vladikadiroff.pagination.presentation.models.PhotoInfoViewState
@@ -31,7 +31,7 @@ class PhotoInfoBottomDialog : MviBottomSheetDialog<DialogPhotoInfoBinding, Photo
 
     override fun initDialog()  = with(binding){
         postEvent(PhotoInfoViewEvent.LoadContent(args.model.id))
-        photoBackground.withGlide(args.model.photoThumbnail)
+        photoBackground.withGlide(args.model.image)
         photoBackground.colorFilter =
             ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
         retryButton.setOnClickListener { postEvent(PhotoInfoViewEvent.LoadContent(args.model.id)) }

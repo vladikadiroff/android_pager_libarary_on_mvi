@@ -1,7 +1,5 @@
 package ru.vladikadiroff.pagination.presentation.models
 
-import ru.vladikadiroff.pagination.domain.models.PhotoInfoModel
-
 data class PhotoInfoViewState(
     val loadingScreen: Boolean = false,
     val errorScreen: Boolean = false,
