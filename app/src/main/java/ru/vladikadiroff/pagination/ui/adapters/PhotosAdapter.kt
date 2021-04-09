@@ -4,8 +4,10 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import ru.vladikadiroff.pagination.presentation.models.*
+import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotoFooterViewHolder
+import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotoHeaderViewHolder
+import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotoImageViewHolder
 import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotosViewHoldersFactory
-import ru.vladikadiroff.pagination.ui.adapters.viewholders.PhotosViewHoldersFactory.*
 import ru.vladikadiroff.pagination.utils.abstracts.BaseViewHolder
 
 class PhotosAdapter(private val listener: (PhotosViewEvent) -> Unit) :

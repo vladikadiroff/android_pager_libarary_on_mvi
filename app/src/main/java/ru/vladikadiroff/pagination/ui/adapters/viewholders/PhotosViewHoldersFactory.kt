@@ -15,9 +15,7 @@ import ru.vladikadiroff.pagination.utils.extensions.truncateNumber
 import ru.vladikadiroff.pagination.utils.extensions.withGlide
 
 class PhotosViewHoldersFactory {
-
     companion object {
-
         fun create(parent: ViewGroup, viewType: Int, listener: (PhotosViewEvent) -> Unit) =
             when (viewType) {
                 PhotoModel.HEADER -> PhotoHeaderViewHolder(parent)
@@ -25,73 +23,71 @@ class PhotosViewHoldersFactory {
                 PhotoModel.FOOTER -> PhotoFooterViewHolder(parent, listener)
                 else -> throw IllegalArgumentException("ViewHolder with type $viewType not found")
             }
+    }
+}
 
+class PhotoHeaderViewHolder(parent: ViewGroup) : BaseViewHolder(R.layout.item_header, parent) {
+
+    private val binding = ItemHeaderBinding.bind(itemView)
+
+    fun bind(model: PhotoHeaderModel) = with(binding) {
+        userName.text = model.userName
+        userProfile.text = model.userAccount
+        userImage.withGlide(model.userProfileImage)
     }
 
-    class PhotoHeaderViewHolder(parent: ViewGroup) : BaseViewHolder(R.layout.item_header, parent) {
+}
 
-        private val binding = ItemHeaderBinding.bind(itemView)
+class PhotoImageViewHolder(parent: ViewGroup, private val listener: (PhotosViewEvent) -> Unit) :
+    BaseViewHolder(R.layout.item_image, parent) {
 
-        fun bind(model: PhotoHeaderModel) = with(binding) {
-            userName.text = model.userName
-            userProfile.text = model.userAccount
-            userImage.withGlide(model.userProfileImage)
+    private val binding = ItemImageBinding.bind(itemView)
+    private val image = binding.pictureImage
+    private val likeImage = binding.likeImage
+
+    fun bind(model: PhotoImageModel) {
+        image.withGlide(model.image)
+        image.aspectRatio = model.ratio
+        image.transitionName = model.id
+        image.setOnClickListener {
+            listener(ItemPhotoClick(model, FragmentNavigatorExtras(image to model.id)))
         }
-
     }
 
-    class PhotoImageViewHolder(parent: ViewGroup, private val listener: (PhotosViewEvent) -> Unit) :
-        BaseViewHolder(R.layout.item_image, parent) {
-
-        private val binding = ItemImageBinding.bind(itemView)
-        private val image = binding.pictureImage
-        private val likeImage = binding.likeImage
-
-        fun bind(model: PhotoImageModel) {
-            image.withGlide(model.image)
-            image.aspectRatio = model.ratio
-            image.transitionName = model.id
-            image.setOnClickListener {
-                listener(ItemPhotoClick(model, FragmentNavigatorExtras(image to model.id)))
-            }
-        }
-
-        fun startLikeAnimation() {
-            likeImage.alpha = 0.70f
-            likeImage.drawable.startVectorAnimation()
-        }
-
+    fun startLikeAnimation() {
+        likeImage.alpha = 0.70f
+        likeImage.drawable.startVectorAnimation()
     }
 
-    class PhotoFooterViewHolder(parent: ViewGroup, private val listener: (PhotosViewEvent) -> Unit) :
-        BaseViewHolder(R.layout.item_footer, parent) {
+}
 
-        private val binding = ItemFooterBinding.bind(itemView)
-        private val container = parent as RecyclerView
+class PhotoFooterViewHolder(parent: ViewGroup, private val listener: (PhotosViewEvent) -> Unit) :
+    BaseViewHolder(R.layout.item_footer, parent) {
 
-        fun bind(model: PhotoFooterModel) =  with(binding) {
+    private val binding = ItemFooterBinding.bind(itemView)
+    private val container = parent as RecyclerView
+
+    fun bind(model: PhotoFooterModel) = with(binding) {
+        likesCount.text = countLikes(model)
+        likeButton.setOnCheckedChangeListener(null)
+        likeButton.isChecked = model.likeUser
+        shareButton.setOnClickListener { listener(ItemShareClick(model)) }
+        infoButton.setOnClickListener { listener(ItemInfoClick(model)) }
+        likeButton.setOnCheckedChangeListener { _, checked ->
+            model.likeUser = checked
             likesCount.text = countLikes(model)
-            likeButton.setOnCheckedChangeListener(null)
-            likeButton.isChecked = model.likeUser
-            shareButton.setOnClickListener { listener(ItemShareClick(model)) }
-            infoButton.setOnClickListener { listener(ItemInfoClick(model)) }
-            likeButton.setOnCheckedChangeListener { _, checked ->
-                model.likeUser = checked
-                likesCount.text = countLikes(model)
-                if (checked) startLikeAnimation()
-            }
+            if (checked) startLikeAnimation()
         }
+    }
 
-        private fun countLikes(model: PhotoFooterModel): String {
-            val likes = model.likes.toInt() + if (model.likeUser) 1 else 0
-            return likes.truncateNumber()
-        }
+    private fun countLikes(model: PhotoFooterModel): String {
+        val likes = model.likes.toInt() + if (model.likeUser) 1 else 0
+        return likes.truncateNumber()
+    }
 
-        private fun startLikeAnimation() {
-            val holder = container.findViewHolderForAdapterPosition(absoluteAdapterPosition - 1)
-            (holder as PhotoImageViewHolder)?.startLikeAnimation()
-        }
-
+    private fun startLikeAnimation() {
+        val holder = container.findViewHolderForAdapterPosition(absoluteAdapterPosition - 1)
+        (holder as PhotoImageViewHolder)?.startLikeAnimation()
     }
 
 }
