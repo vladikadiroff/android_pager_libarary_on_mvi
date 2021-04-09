@@ -47,4 +47,9 @@ abstract class MviBottomSheetDialog <VB : ViewBinding, VS, VA, VE, VM : MviViewM
 
     protected abstract fun renderAction(action: VA)
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
