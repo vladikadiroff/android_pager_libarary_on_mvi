@@ -19,6 +19,7 @@ import ru.vladikadiroff.pagination.presentation.models.PhotosViewState
 import ru.vladikadiroff.pagination.presentation.viewmodels.PhotosViewModel
 import ru.vladikadiroff.pagination.ui.adapters.LoadStateAdapter
 import ru.vladikadiroff.pagination.ui.adapters.PhotosAdapter
+import ru.vladikadiroff.pagination.ui.adapters.decorators.OffsetItemDecoration
 import ru.vladikadiroff.pagination.utils.abstracts.MviFragment
 import ru.vladikadiroff.pagination.utils.extensions.doOnApplyWindowInsets
 import ru.vladikadiroff.pagination.utils.extensions.showToast
@@ -39,6 +40,7 @@ class PhotosFragment : MviFragment<FragmentPhotosBinding, PhotosViewState,
         this@PhotosFragment.loadingScreen = loadingScreen.withLifecycleHandler(viewLifecycleOwner)
         swipeRefresh.setOnRefreshListener { postEvent(PhotosViewEvent.Refresh) }
         list.adapter = adapter.withLoadStateFooter(LoadStateAdapter(adapter::retry))
+        list.addItemDecoration(OffsetItemDecoration(requireContext()))
         adapter.addLoadStateListener { postEvent(PhotosViewEvent.PagingLoadState(it)) }
         list.doOnApplyWindowInsets { list, insets, _ ->
             list.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)

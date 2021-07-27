@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.onEach
+import ru.vladikadiroff.pagination.R
 import ru.vladikadiroff.pagination.utils.extensions.launchWhenStarted
 import ru.vladikadiroff.pagination.utils.helpers.onSingleEvent
 
